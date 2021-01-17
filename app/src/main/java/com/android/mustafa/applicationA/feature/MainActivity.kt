@@ -4,26 +4,16 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.database.Cursor
 import android.os.Bundle
 import android.service.notification.StatusBarNotification
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.loader.app.LoaderManager
-import androidx.loader.content.CursorLoader
-import androidx.loader.content.Loader
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.android.mustafa.applicationA.R
 import com.android.mustafa.applicationA.core.util.DialogAlertUtil
 import com.android.mustafa.applicationA.core.util.ServiceUtil
 import com.android.mustafa.applicationA.feature.model.NotificationEntity
-import com.android.mustafa.applicationA.feature.model.NotificationEntity.Companion.COLUMN_ID
-import com.android.mustafa.applicationA.feature.model.NotificationEntity.Companion.COLUMN_PACKAGE_NAME
-import com.android.mustafa.applicationA.feature.model.NotificationEntity.Companion.COLUMN_PRIORITY
-import com.android.mustafa.applicationA.feature.model.NotificationEntity.Companion.COLUMN_TIME
-import com.android.mustafa.applicationA.feature.model.NotificationEntity.Companion.COLUMN_TITLE
-import com.android.mustafa.applicationA.provider.CustomContentProvider.Companion.URI_NOTIFICATION
 import com.android.mustafa.applicationA.service.CustomNotificationListenerService2.Companion.RESULT_KEY_NEW
 import com.android.mustafa.applicationA.service.CustomNotificationListenerService2.Companion.RESULT_KEY_REMOVE
 import com.android.mustafa.applicationA.service.CustomNotificationListenerService2.Companion.RESULT_VALUE_NEW
@@ -47,8 +37,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     private val viewModel by viewModels<NotificationViewModel> { viewModelFactory }
 
-    var cursor: Cursor? = null
-
 
     companion object {
         private const val ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners"
@@ -64,7 +52,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         // If the user did not turn the notification listener service on we prompt him to do so
         showDialogNotificationPermission()
 
-//        LoaderManager.getInstance(this).initLoader<Cursor>(1, null, mLoaderCallbacks)
 
     }
 
@@ -133,8 +120,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     @Suppress("DEPRECATION")
     private fun buildNotification(statusBarNotification: StatusBarNotification): NotificationEntity {
-//        val title = statusBarNotification.notification.extras.getString("android.title")
-
         return NotificationEntity(
             statusBarNotification.id.toLong(),
             statusBarNotification.notification.extras.getString("android.title")
@@ -147,13 +132,17 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     private fun showDialogNotificationPermission() {
         if (!serviceUtil.isServiceEnabled(this, packageName, ENABLED_NOTIFICATION_LISTENERS)) {
-            DialogAlertUtil.createAlertDialog(this, ACTION_NOTIFICATION_LISTENER_SETTINGS).show()
+            DialogAlertUtil.createAlertDialogForSpecificPermission(
+                this,
+                R.style.ThemeOverlay_MaterialComponents_Dialog,
+                ACTION_NOTIFICATION_LISTENER_SETTINGS,
+                getString(R.string.notification_service_permission_title),
+                getString(R.string.notification_service_permission_message)
+            ).show()
         }
     }
 
     override fun onDestroy() {
-
-        viewModel.deleteAll()
         //UnRegister to Broadcast for Updating UI
         LocalBroadcastManager.getInstance(this).unregisterReceiver(clientLooperReceiver)
         super.onDestroy()

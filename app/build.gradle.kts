@@ -3,9 +3,6 @@ plugins {
     id(BuildPlugins.androidApplication)
     id(BuildPlugins.kotlinAndroid)
     id(BuildPlugins.kotlinKapt)
-
-    id("kotlin-parcelize")
-
 }
 
 android {
@@ -25,7 +22,6 @@ android {
     buildTypes {
         getByName(BuildTypes.DEBUG) {
             isMinifyEnabled = false
-//            applicationIdSuffix = ".${BuildTypes.DEBUG}"
             isDebuggable = true
         }
         getByName(BuildTypes.RELEASE) {

@@ -1,14 +1,11 @@
 package com.android.mustafa.applicationA.feature.model
 
 import android.content.ContentValues
-import android.os.Parcelable
 import android.provider.BaseColumns
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 @Entity(tableName = NotificationEntity.TABLE_NAME)
 data class NotificationEntity(
     @PrimaryKey
@@ -26,7 +23,7 @@ data class NotificationEntity(
 
     @ColumnInfo(name = COLUMN_TIME)
     var time: Long = 0L
-) : Parcelable {
+)  {
     companion object {
         const val TABLE_NAME = "notifications"
 

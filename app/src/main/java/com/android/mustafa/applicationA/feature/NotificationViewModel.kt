@@ -41,5 +41,10 @@ class NotificationViewModel @Inject constructor(private val dao: BllocDao) : Vie
         }
     }
 
+    override fun onCleared() {
+        //Delete notifications when the viewModel is destroyed
+        deleteAll()
+    }
+
 
 }

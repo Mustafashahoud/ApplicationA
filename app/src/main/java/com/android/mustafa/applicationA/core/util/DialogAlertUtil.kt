@@ -3,18 +3,28 @@ package com.android.mustafa.applicationA.core.util
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import com.android.mustafa.applicationA.R
 
 object DialogAlertUtil {
 
     /**
+     * @param themeResId the style of the Dialog
      * @param context the Context to show the dialog
-     * @param action intent action tpo move to
+     * @param action intent action to move to
+     * @param title the title of the dialog
+     * @param message the message of the dialog
      */
-    fun createAlertDialog(context: Context, action: String): AlertDialog {
-        val alertDialogBuilder = AlertDialog.Builder(context)
-        alertDialogBuilder.setTitle(R.string.notification_listener_service)
-        alertDialogBuilder.setMessage(R.string.notification_listener_service_explanation)
+    fun createAlertDialogForSpecificPermission(
+        context: Context,
+        themeResId: Int = Resources.ID_NULL,
+        action: String,
+        title: String,
+        message: String
+    ): AlertDialog {
+        val alertDialogBuilder = AlertDialog.Builder(context, themeResId)
+        alertDialogBuilder.setTitle(title)
+        alertDialogBuilder.setMessage(message)
         alertDialogBuilder.setPositiveButton(
             R.string.yes
         ) { _, _ ->
@@ -22,10 +32,7 @@ object DialogAlertUtil {
         }
         alertDialogBuilder.setNegativeButton(
             R.string.no
-        ) { _, _ ->
-            // If you choose to not enable the notification listener
-            // the app. will not work as expected
-        }
+        ) { _, _ -> }
         return alertDialogBuilder.create()
     }
 }

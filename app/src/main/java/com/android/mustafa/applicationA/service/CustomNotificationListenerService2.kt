@@ -5,7 +5,7 @@ import android.content.Intent
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.android.mustafa.applicationA.feature.NotificationUtil
+import com.android.mustafa.applicationA.feature.util.NotificationUtil
 
 class CustomNotificationListenerService2 : NotificationListenerService() {
 

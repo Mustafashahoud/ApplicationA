@@ -1,4 +1,4 @@
-package com.android.mustafa.applicationA.feature
+package com.android.mustafa.applicationA.feature.util
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -10,12 +10,12 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.getSystemService
 import com.android.mustafa.applicationA.R
-import com.android.mustafa.applicationA.feature.NotificationUtil.SocialPackageNames.FACEBOOK_PACKAGE
-import com.android.mustafa.applicationA.feature.NotificationUtil.SocialPackageNames.INSTAGRAM_PACKAGE
-import com.android.mustafa.applicationA.feature.NotificationUtil.SocialPackageNames.LINKEDIN_PACKAGE
-import com.android.mustafa.applicationA.feature.NotificationUtil.SocialPackageNames.MASSENGER_PACKAGE
-import com.android.mustafa.applicationA.feature.NotificationUtil.SocialPackageNames.TWITTER_PACKAGE
-import com.android.mustafa.applicationA.feature.NotificationUtil.SocialPackageNames.WHATSAPP_PACKAGE
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.SocialPackageNames.FACEBOOK_PACKAGE
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.SocialPackageNames.INSTAGRAM_PACKAGE
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.SocialPackageNames.LINKEDIN_PACKAGE
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.SocialPackageNames.MASSENGER_PACKAGE
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.SocialPackageNames.TWITTER_PACKAGE
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.SocialPackageNames.WHATSAPP_PACKAGE
 import com.android.mustafa.applicationA.feature.model.Category
 import java.util.concurrent.atomic.AtomicInteger
 
