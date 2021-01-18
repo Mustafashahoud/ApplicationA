@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         private const val ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners"
         private const val ACTION_NOTIFICATION_LISTENER_SETTINGS =
             "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
-        private val DEFAUL_TITLE = "Default Title"
-        private val DEFAUL_MESSAGE = "Default Message"
+        private const val DEFAULT_TITLE = "Default Title"
+        private const val DEFAULT_MESSAGE = "Default Message"
     }
 
 
@@ -105,9 +105,9 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
         return NotificationEntity(
             id = statusBarNotification.id.toLong(),
-            title = getNotificationTitle(statusBarNotification) ?: DEFAUL_TITLE,
+            title = getNotificationTitle(statusBarNotification) ?: DEFAULT_TITLE,
             packageName = statusBarNotification.packageName,
-            message = getNotificationMessage(statusBarNotification) ?: DEFAUL_MESSAGE,
+            message = getNotificationMessage(statusBarNotification) ?: DEFAULT_MESSAGE,
             importance = getNotificationImportant(this, statusBarNotification),
             time = statusBarNotification.postTime
         )

@@ -4,7 +4,7 @@
     package="com.android.mustafa.applicationa">
 
 
-    <permission android:name="com.android.mustafa.applicationa.provider.READ_WRITE"/>
+    <permission android:name="com.android.mustafa.applicationa.provider.READ"/>
 
     <application
         android:name="com.android.mustafa.applicationa.BllocApp"
@@ -37,7 +37,7 @@
             android:name="com.android.mustafa.applicationa.provider.CustomContentProvider"
             android:authorities="com.android.mustafa.applicationa.provider"
             android:exported="true"
-            android:permission="com.android.mustafa.applicationa.provider.READ_WRITE"/>
+            android:permission="com.android.mustafa.applicationa.provider.READ"/>
     </application>
 
 </manifest>
