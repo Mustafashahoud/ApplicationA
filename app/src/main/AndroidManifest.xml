@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.android.mustafa.applicationA">
+    package="com.android.mustafa.applicationa">
 
 
-    <permission android:name="com.android.mustafa.applicationA.provider.READ_WRITE"/>
+    <permission android:name="com.android.mustafa.applicationa.provider.READ_WRITE"/>
 
     <application
-        android:name="com.android.mustafa.applicationA.BllocApp"
+        android:name="com.android.mustafa.applicationa.BllocApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ApplicationA"
         tools:ignore="AllowBackup">
-        <activity android:name="com.android.mustafa.applicationA.feature.MainActivity">
+        <activity android:name="com.android.mustafa.applicationa.feature.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +25,7 @@
 
 
         <service
-            android:name="com.android.mustafa.applicationA.service.CustomNotificationListenerService2"
+            android:name="com.android.mustafa.applicationa.service.CustomNotificationListenerService"
             android:label="@string/notification_service_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
@@ -34,10 +34,10 @@
         </service>
 
         <provider
-            android:name="com.android.mustafa.applicationA.provider.CustomContentProvider"
-            android:authorities="com.android.mustafa.applicationA.provider"
+            android:name="com.android.mustafa.applicationa.provider.CustomContentProvider"
+            android:authorities="com.android.mustafa.applicationa.provider"
             android:exported="true"
-            android:permission="com.android.mustafa.applicationA.provider.READ_WRITE"/>
+            android:permission="com.android.mustafa.applicationa.provider.READ_WRITE"/>
     </application>
 
 </manifest>

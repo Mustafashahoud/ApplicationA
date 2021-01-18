@@ -16,7 +16,7 @@ object AndroidSdk {
 }
 
 object AndroidClient {
-    const val appId = "com.android.mustafa.applicationA"
+    const val appId = "com.android.mustafa.applicationa"
     const val versionCode = 1
     const val versionName = "1.0"
     const val testRunner = "androidx.test.runner.AndroidJUnitRunner"
