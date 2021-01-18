@@ -18,8 +18,11 @@ data class NotificationEntity(
     @ColumnInfo(name = COLUMN_PACKAGE_NAME)
     var packageName: String = "",
 
-    @ColumnInfo(name = COLUMN_PRIORITY)
-    var priority: Int = 0,
+    @ColumnInfo(name = COLUMN_MESSAGE)
+    var message: String = "",
+
+    @ColumnInfo(name = COLUMN_IMPORTANCE)
+    var importance: Int = 0,
 
     @ColumnInfo(name = COLUMN_TIME)
     var time: Long = 0L
@@ -37,7 +40,10 @@ data class NotificationEntity(
         const val COLUMN_PACKAGE_NAME = "packageName"
 
         /** The name of the name column.  */
-        const val COLUMN_PRIORITY = "priority"
+        const val COLUMN_MESSAGE = "message"
+
+        /** The name of the name column.  */
+        const val COLUMN_IMPORTANCE = "importance"
 
         /** The name of the name column.  */
         const val COLUMN_TIME = "time"
@@ -50,11 +56,14 @@ data class NotificationEntity(
             if (values != null && values.containsKey(COLUMN_TITLE)) {
                 notification.title = values.getAsString(COLUMN_TITLE)
             }
-            if (values != null && values.containsKey(COLUMN_PRIORITY)) {
-                notification.priority = values.getAsInteger(COLUMN_PRIORITY)
+            if (values != null && values.containsKey(COLUMN_IMPORTANCE)) {
+                notification.importance = values.getAsInteger(COLUMN_IMPORTANCE)
             }
             if (values != null && values.containsKey(COLUMN_PACKAGE_NAME)) {
                 notification.packageName = values.getAsString(COLUMN_PACKAGE_NAME)
+            }
+            if (values != null && values.containsKey(COLUMN_MESSAGE)) {
+                notification.message = values.getAsString(COLUMN_MESSAGE)
             }
             if (values != null && values.containsKey(COLUMN_TIME)) {
                 notification.time = values.getAsLong(COLUMN_TIME)
@@ -67,8 +76,4 @@ data class NotificationEntity(
 }
 
 
-enum class Category {
-    SOCIAL,
-    OTHER
-}
 

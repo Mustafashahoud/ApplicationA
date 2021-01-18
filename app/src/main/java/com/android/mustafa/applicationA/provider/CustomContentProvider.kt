@@ -27,15 +27,19 @@ class CustomContentProvider : ContentProvider(), HasAndroidInjector {
         const val AUTHORITY = "com.android.mustafa.applicationA.provider"
         private const val TABLE_NAME = NotificationEntity.TABLE_NAME
 
-        /** The URI for the notifications table.  */
+
+        // Will be used in the resolver
+
+        /** The URI for the notifications table.
         val URI_NOTIFICATION = Uri.parse(
             "content://$AUTHORITY/notifications"
         )
+         */
 
-        /**The match code for some items in the  Notification table.  */
+        /**The match code for some items in the Notification table.  */
         private const val CODE_Notification_DIR = 1
 
-        /** The match code for an item in the  Notification table.  */
+        /** The match code for an item in the Notification table.  */
         private const val CODE_Notification_ITEM = 2
 
         /** The URI matcher.  */
@@ -49,6 +53,7 @@ class CustomContentProvider : ContentProvider(), HasAndroidInjector {
 
 
     override fun onCreate(): Boolean {
+        // Inject CustomContentProvider to be able to do field injection for db
         AndroidInjection.inject(this)
         return true
     }
@@ -152,7 +157,7 @@ class CustomContentProvider : ContentProvider(), HasAndroidInjector {
             super.applyBatch(
                 operations
             )
-        })?: arrayOf()
+        }) ?: arrayOf()
     }
 
     override fun androidInjector(): AndroidInjector<Any> {

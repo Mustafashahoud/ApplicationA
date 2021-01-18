@@ -5,61 +5,60 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import androidx.annotation.RequiresApi
+import android.service.notification.StatusBarNotification
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.getSystemService
 import com.android.mustafa.applicationA.R
-import com.android.mustafa.applicationA.feature.util.NotificationUtil.SocialPackageNames.FACEBOOK_PACKAGE
-import com.android.mustafa.applicationA.feature.util.NotificationUtil.SocialPackageNames.INSTAGRAM_PACKAGE
-import com.android.mustafa.applicationA.feature.util.NotificationUtil.SocialPackageNames.LINKEDIN_PACKAGE
-import com.android.mustafa.applicationA.feature.util.NotificationUtil.SocialPackageNames.MASSENGER_PACKAGE
-import com.android.mustafa.applicationA.feature.util.NotificationUtil.SocialPackageNames.TWITTER_PACKAGE
-import com.android.mustafa.applicationA.feature.util.NotificationUtil.SocialPackageNames.WHATSAPP_PACKAGE
-import com.android.mustafa.applicationA.feature.model.Category
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.ChannelsUtil.CHANNEL_1_ID
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.ChannelsUtil.CHANNEL_2_ID
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.ChannelsUtil.IMPORTANCE_DEFAULT
 import java.util.concurrent.atomic.AtomicInteger
 
 
 object NotificationUtil {
-     fun getNotificationCategory(packageName: String): Category {
-        return when (packageName) {
-            FACEBOOK_PACKAGE -> Category.SOCIAL
-            MASSENGER_PACKAGE -> Category.SOCIAL
-            WHATSAPP_PACKAGE -> Category.SOCIAL
-            INSTAGRAM_PACKAGE -> Category.SOCIAL
-            LINKEDIN_PACKAGE -> Category.SOCIAL
-            TWITTER_PACKAGE -> Category.SOCIAL
-            else -> Category.OTHER
+
+    object ChannelsUtil {
+        const val CHANNEL_1_ID = "channel1"
+        const val CHANNEL_2_ID = "channel2"
+        const val IMPORTANCE_DEFAULT = 3
+    }
+
+
+    fun getNotificationImportant(
+        context: Context,
+        statusBarNotification: StatusBarNotification
+    ): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val channel = manager.getNotificationChannel(statusBarNotification.notification.channelId)
+            channel.importance
+        } else {
+            IMPORTANCE_DEFAULT
         }
     }
 
-     object SocialPackageNames {
-        const val FACEBOOK_PACKAGE = "com.facebook.katana"
-        const val MASSENGER_PACKAGE = "com.facebook.orca"
-        const val WHATSAPP_PACKAGE = "com.whatsapp"
-        const val INSTAGRAM_PACKAGE = "com.instagram.android"
-        const val LINKEDIN_PACKAGE = "com.linkedin.android"
-        const val TWITTER_PACKAGE = "com.twitter.android"
+    fun getNotificationTitle(statusBarNotification: StatusBarNotification): String? {
+        return statusBarNotification.notification.extras.getString("android.title")
     }
 
-    const val CHANNEL_1_ID = "channel1"
-    const val CHANNEL_2_ID = "channel2"
+    fun getNotificationMessage(statusBarNotification: StatusBarNotification): String? {
+        return statusBarNotification.notification.extras.getString("android.text")
+    }
 
-    fun createNotification(context: Context, title: String, message: String) {
-        val notificationManager = NotificationManagerCompat.from(context);
-        val notification: Notification = NotificationCompat.Builder(context, CHANNEL_1_ID)
+    fun createNotification(context: Context, title: String, message: String, channelId: String) {
+        val notificationManager = NotificationManagerCompat.from(context)
+        val notification: Notification = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_launcher_background)
             .setContentTitle(title)
             .setContentText(message)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_SYSTEM)
             .build()
-        notificationManager.notify(NotificationID.id, notification);
+        notificationManager.notify(NotificationID.id, notification)
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
-     fun createNotificationChannels(context: Context) {
+    fun createNotificationChannels(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel1 = NotificationChannel(
                 CHANNEL_1_ID,

@@ -12,7 +12,7 @@ interface BllocDao {
     @Update
     fun update(notification: NotificationEntity): Int
 
-    @Query("SELECT * FROM notifications")
+    @Query("SELECT * FROM notifications ORDER BY importance DESC")
     fun getAllNotifications(): Cursor
 
     @Query("SELECT * FROM notifications WHERE _id = :id")

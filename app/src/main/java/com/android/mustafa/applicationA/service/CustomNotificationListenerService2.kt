@@ -6,6 +6,8 @@ import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.android.mustafa.applicationA.feature.util.NotificationUtil
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.ChannelsUtil.CHANNEL_1_ID
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.ChannelsUtil.CHANNEL_2_ID
 
 class CustomNotificationListenerService2 : NotificationListenerService() {
 
@@ -13,14 +15,23 @@ class CustomNotificationListenerService2 : NotificationListenerService() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationUtil.createNotificationChannels(this)
         }
-        NotificationUtil.createNotification(this, title = "title1", message = "message1")
-        NotificationUtil.createNotification(this, title = "title2", message = "message2")
-        NotificationUtil.createNotification(this, title = "title3", message = "message3")
+        NotificationUtil.createNotification(
+            this,
+            title = "title1",
+            message = "message1",
+            CHANNEL_1_ID
+        )
+        NotificationUtil.createNotification(
+            this,
+            title = "title2",
+            message = "message2",
+            CHANNEL_2_ID
+        )
     }
 
 
     /**
-     * New Notn Added Callback
+     * New Notification Callback
      */
     override fun onNotificationPosted(newNotification: StatusBarNotification) {
         sendNewResultOnUI(newNotification)
@@ -52,8 +63,6 @@ class CustomNotificationListenerService2 : NotificationListenerService() {
         //Update UI actions
         const val UPDATE_UI_REMOVE_ACTION = "UPDATE_UI_REMOVE_ACTION"
         const val UPDATE_UI_NEW_ACTION = "UPDATE_UI_NEW__ACTION"
-
-        const val PACKAGE_NAME = "com.android.mustafa.applicationA"
 
         // Bundle Key Value Pair
         const val RESULT_KEY_NEW = "readResultKeyNew"

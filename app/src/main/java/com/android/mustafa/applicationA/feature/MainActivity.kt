@@ -14,6 +14,9 @@ import com.android.mustafa.applicationA.R
 import com.android.mustafa.applicationA.core.util.DialogAlertUtil
 import com.android.mustafa.applicationA.core.util.ServiceUtil
 import com.android.mustafa.applicationA.feature.model.NotificationEntity
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.getNotificationImportant
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.getNotificationMessage
+import com.android.mustafa.applicationA.feature.util.NotificationUtil.getNotificationTitle
 import com.android.mustafa.applicationA.service.CustomNotificationListenerService2.Companion.RESULT_KEY_NEW
 import com.android.mustafa.applicationA.service.CustomNotificationListenerService2.Companion.RESULT_KEY_REMOVE
 import com.android.mustafa.applicationA.service.CustomNotificationListenerService2.Companion.RESULT_VALUE_NEW
@@ -42,6 +45,8 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         private const val ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners"
         private const val ACTION_NOTIFICATION_LISTENER_SETTINGS =
             "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
+        private val DEFAUL_TITLE = "Default Title"
+        private val DEFAUL_MESSAGE = "Default Message"
     }
 
 
@@ -64,41 +69,19 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
                 val resultValueNew =
                     intent.getParcelableExtra<StatusBarNotification>(RESULT_VALUE_NEW)
                 if (resultValueNew != null) {
-                    val notificationToSend = buildNotification(resultValueNew)
+                    val notificationToSend = buildNotificationInfo(resultValueNew)
                     viewModel.insert(notificationToSend)
                 }
             } else if (resultCodeRemove == RESULT_OK) {
                 val resultValueRemove =
                     intent.getParcelableExtra<StatusBarNotification>(RESULT_VALUE_REMOVE)
                 if (resultValueRemove != null) {
-                    val notificationToDelete = buildNotification(resultValueRemove)
+                    val notificationToDelete = buildNotificationInfo(resultValueRemove)
                     viewModel.delete(notificationToDelete.id)
                 }
             }
         }
     }
-
-//    private val mLoaderCallbacks = object : LoaderManager.LoaderCallbacks<Cursor> {
-//        override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
-//            return CursorLoader(
-//                applicationContext,
-//                URI_NOTIFICATION, arrayOf(COLUMN_ID, COLUMN_PACKAGE_NAME, COLUMN_PRIORITY, COLUMN_TIME, COLUMN_TITLE),
-//                null, null, null)
-//        }
-//
-//        override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
-//            cursor = data
-//            if (cursor?.moveToPosition(1) == true) {
-//                val title = cursor?.getString(cursor?.getColumnIndexOrThrow(COLUMN_TITLE)!!)
-//                print(title)
-//            }
-//        }
-//
-//        override fun onLoaderReset(loader: Loader<Cursor>) {
-//
-//        }
-//
-//    }
 
     override fun onResume() {
         super.onResume()
@@ -118,15 +101,15 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         return intentFilter
     }
 
-    @Suppress("DEPRECATION")
-    private fun buildNotification(statusBarNotification: StatusBarNotification): NotificationEntity {
+    private fun buildNotificationInfo(statusBarNotification: StatusBarNotification): NotificationEntity {
+
         return NotificationEntity(
-            statusBarNotification.id.toLong(),
-            statusBarNotification.notification.extras.getString("android.title")
-                ?: statusBarNotification.packageName,
-            statusBarNotification.packageName,
-            statusBarNotification.notification.priority,
-            statusBarNotification.postTime
+            id = statusBarNotification.id.toLong(),
+            title = getNotificationTitle(statusBarNotification) ?: DEFAUL_TITLE,
+            packageName = statusBarNotification.packageName,
+            message = getNotificationMessage(statusBarNotification) ?: DEFAUL_MESSAGE,
+            importance = getNotificationImportant(this, statusBarNotification),
+            time = statusBarNotification.postTime
         )
     }
 
@@ -150,3 +133,26 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 }
+
+//    private val mLoaderCallbacks = object : LoaderManager.LoaderCallbacks<Cursor> {
+//        override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
+//            return CursorLoader(
+//                applicationContext,
+//                URI_NOTIFICATION, arrayOf(COLUMN_ID, COLUMN_PACKAGE_NAME, COLUMN_PRIORITY, COLUMN_TIME, COLUMN_TITLE),
+//                null, null, null)
+//        }
+//
+//        override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
+//            cursor = data
+//            if (cursor?.moveToPosition(1) == true) {
+//                val title = cursor?.getString(cursor?.getColumnIndexOrThrow(COLUMN_TITLE)!!)
+//                print(title)
+//            }
+//        }
+//
+//        override fun onLoaderReset(loader: Loader<Cursor>) {
+//
+//        }
+//
+//    }
+
