@@ -51,6 +51,8 @@ dependencies {
     compileOnly(Libraries.javaxAnnotation)
     compileOnly(Libraries.javaxInject)
 
+    kaptAndroidTest  (Libraries.daggerCompiler)
+    kaptAndroidTest (Libraries.daggerAndroidProcessor)
     // Application dependencies
     implementation(Libraries.kotlinStdLib)
     implementation(Libraries.kotlinCoroutines)
@@ -60,8 +62,6 @@ dependencies {
     implementation(Libraries.activity)
     implementation(Libraries.constraintLayout)
     implementation(Libraries.viewModel)
-    implementation(Libraries.liveData)
-    implementation(Libraries.lifecycleExtensions)
     implementation(Libraries.localBroadcastManager)
     implementation(Libraries.material)
     implementation(Libraries.androidAnnotations)
@@ -72,11 +72,6 @@ dependencies {
     implementation(Libraries.roomKtx)
     implementation(Libraries.roomRuntime)
 
-    // Unit/Android tests dependencies
-    testImplementation(TestLibraries.junit4)
-    testImplementation(TestLibraries.mockk)
-    testImplementation(TestLibraries.kluent)
-    testImplementation(TestLibraries.robolectric)
 
     // Acceptance tests dependencies
     androidTestImplementation(TestLibraries.testRunner)
@@ -84,6 +79,7 @@ dependencies {
     androidTestImplementation(TestLibraries.testExtJunit)
     androidTestImplementation(TestLibraries.testRules)
     androidTestImplementation(TestLibraries.espressoIntents)
+    androidTestImplementation(TestLibraries.coreTesting)
 
     // Development dependencies
     debugImplementation(DevLibraries.leakCanary)

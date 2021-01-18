@@ -30,11 +30,11 @@ class CustomContentProvider : ContentProvider(), HasAndroidInjector {
 
         // Will be used in the resolver
 
-        /** The URI for the notifications table.
-        val URI_NOTIFICATION = Uri.parse(
+        // The URI for the notifications table.
+        val URI_NOTIFICATION: Uri = Uri.parse(
             "content://$AUTHORITY/notifications"
         )
-         */
+
 
         /**The match code for some items in the Notification table.  */
         private const val CODE_Notification_DIR = 1
@@ -163,6 +163,5 @@ class CustomContentProvider : ContentProvider(), HasAndroidInjector {
     override fun androidInjector(): AndroidInjector<Any> {
         return androidInjector
     }
-
 
 }

@@ -33,7 +33,6 @@ class BllocApp : Application(), HasAndroidInjector {
 
     }
 
-
     override fun androidInjector(): AndroidInjector<Any> {
         return androidInjector
     }

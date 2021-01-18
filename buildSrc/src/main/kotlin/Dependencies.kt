@@ -19,24 +19,20 @@ object AndroidClient {
     const val appId = "com.android.mustafa.applicationa"
     const val versionCode = 1
     const val versionName = "1.0"
-    const val testRunner = "androidx.test.runner.AndroidJUnitRunner"
+    const val testRunner = "com.android.mustafa.applicationa.base.BllocTestRunner"
 }
 
 object BuildPlugins {
 
     object Versions {
         const val buildToolsVersion = "4.1.1"
-        const val serialization = "1.4.30-M1"
     }
 
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.buildToolsVersion}"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.standardLibrary}"
-    const val serializationClasspath = "org.jetbrains.kotlin:kotlin-serialization:${Versions.serialization}"
-    const val serializationPlugin = "org.jetbrains.kotlin.plugin.serialization"
     const val androidApplication = "com.android.application"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinKapt = "kotlin-kapt"
-    const val kotlinAndroidExtensions = "kotlin-android-extensions"
 }
 
 object Libraries {
@@ -107,6 +103,7 @@ object TestLibraries {
         const val testRunner = "1.1.0"
         const val espressoCore = "3.2.0"
         const val espressoIntents = "3.1.0"
+        const val coreTesting = "2.1.0"
         const val testExtensions = "1.1.1"
         const val testRules = "1.1.0"
     }
@@ -119,6 +116,7 @@ object TestLibraries {
     const val testRules       = "androidx.test:rules:${Versions.testRules}"
     const val espressoCore    = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
     const val espressoIntents = "androidx.test.espresso:espresso-intents:${Versions.espressoIntents}"
+    const val coreTesting     = "androidx.arch.core:core-testing:${Versions.coreTesting}"
     const val testExtJunit    = "androidx.test.ext:junit:${Versions.testExtensions}"
 }
 
